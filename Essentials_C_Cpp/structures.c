@@ -65,14 +65,10 @@ int main() {
 
     printf("\nThe area of the rectangle -> %d\n\n", rect.length * rect.breadth);
 
-    printf("First complex -> ");
-    print_complex(complex1);
-    printf("\nSecond complex -> ");
-    print_complex(complex2);
+    printf("First complex -> "); print_complex(complex1);
+    printf("\nSecond complex -> "); print_complex(complex2);
 
-    printf("\nResult of the imaginary number -> ");
-    print_complex(result);
-    printf("\n");
+    printf("\nResult of the imaginary number -> "); print_complex(result); printf("\n");
 
     free(complex1);
     free(complex2);
