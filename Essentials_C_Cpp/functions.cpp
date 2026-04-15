@@ -17,7 +17,7 @@ void swap_byAddress(int* a, int* b) {
 }
 
 void swap_byReference(int& a, int& b) {
-    //The swao by reference is a Cpp feature, where the compiler
+    //The swap by reference is a Cpp feature, where the compiler
     //copies the function code into the main function, where you
     //can use the original variables without allocating memory for it.
     //However, it's not suitable for long/complex functions, since
@@ -25,6 +25,24 @@ void swap_byReference(int& a, int& b) {
     int temp = a;
     a = b;
     b = temp;
+}
+
+int sum_array(int arr[], int size) {
+    //To pass an array as an parameter, you can use two syntax.
+    //First one is the '[]'
+    //Second one is as a pointer '*'
+    
+    //The '[]' decays to pointer... This is because the variable
+    //"arr" is basically a pointer to the first element of the array
+
+    //Use '[]' to specify that the parameter is an array, and use
+    //the pointer '*' only as a generic parameter
+    int res = 0;
+    for (int i = 0; i < size; i++) {
+        res += arr[i];
+    }
+
+    return res;
 }
 
 int main () {
