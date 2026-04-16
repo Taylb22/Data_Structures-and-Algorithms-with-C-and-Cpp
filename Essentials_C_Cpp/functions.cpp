@@ -1,5 +1,10 @@
 #include <iostream>
 
+struct rectangle {
+    int length;
+    int breadth;
+};
+
 void swap_byValue(int a, int b) {
     //This function won't work in this case, since the swap
     //by Value does not alter the original variables
@@ -45,16 +50,18 @@ int sum_array(int arr[], int size) {
     return res;
 }
 
+//Struct as a function parameter
 int main () {
     int a = 10;
     int b = 5;
 
     printf("Original Values -> %d | %d\n", a, b);
     swap_byValue(a, b);
-    printf("\nAfter byValue -> %d | %d\n", a, b);
+    printf("After byValue -> %d | %d\n", a, b);
     swap_byAddress(&a, &b);
-    printf("\nAfter byAddress -> %d | %d\n", a, b);
+    printf("After byAddress -> %d | %d\n", a, b);
     swap_byReference(a, b); //Use the byReference only for small/simple functions
-    printf("\nAfter byReference -> %d | %d\n", a , b);
+    printf("After byReference -> %d | %d\n", a , b);
+
     return 0;
 }
