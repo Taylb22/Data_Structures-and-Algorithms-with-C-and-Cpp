@@ -16,7 +16,8 @@ int* gen_random_int_array(int size, int min, int max) {
     return array;
 }
 
-int sum_array(int* array, int size) {
+int sum_array(int* array, int size)
+ {
     int sum = 0;
     for (int i = 0; i < size; i++) {
         sum += *(array + i);
