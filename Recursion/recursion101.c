@@ -1,6 +1,9 @@
 #include <stdio.h>
 
+static int depth = 0; //Global Static (protected inside the file)
 int recursive_sum(int n) {
+    depth++;
+
     //Defining the Break Point
     if (n <= 0) {
         return 0;
@@ -18,5 +21,6 @@ int main () {
     //Descending Phase (returning)
 
     printf("The sum of recursive %d is %d\n", n, sum);
+    printf("Depth of the recursion -> %d\n", depth);
     return 0;
 }
