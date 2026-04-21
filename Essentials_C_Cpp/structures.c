@@ -11,26 +11,23 @@ struct complex_number {
     int imaginary;
 };
 
-struct complex_number* sum_complex(struct complex_number* C1, struct complex_number* C2) {
-    struct complex_number* cResult = malloc(sizeof(struct complex_number));
+struct complex_number sum_complex(struct complex_number* C1, struct complex_number* C2) {
+    struct complex_number cResult;
 
-    cResult->real = C1->real + C2->real;
-    cResult->imaginary = C1->imaginary + C2->imaginary;
+    cResult.real = C1->real + C2->real;
+    cResult.imaginary = C1->imaginary + C2->imaginary;
 
     return cResult;
 }
 
-struct complex_number* multiply_complex(struct complex_number* C1, struct complex_number* C2) {
-    struct complex_number* cResult1 = malloc(sizeof(struct complex_number));
-    struct complex_number* cResult2 = malloc(sizeof(struct complex_number));
+struct complex_number multiply_complex(struct complex_number* C1, struct complex_number* C2) {
+    struct complex_number cResult1;
+    struct complex_number cResult2;
 
-    cResult1->real = C1->real * C2->real; cResult1->imaginary = C1->real * C2->imaginary;
-    cResult2->real = C1->imaginary * ((-1) * C2->imaginary); cResult2->imaginary = C1->imaginary * C2->real;
+    cResult1.real = C1->real * C2->real; cResult1.imaginary = C1->real * C2->imaginary;
+    cResult2.real = C1->imaginary * ((-1) * C2->imaginary); cResult2.imaginary = C1->imaginary * C2->real;
 
-    struct complex_number* result = sum_complex(cResult1, cResult2);
-    free(cResult1);
-    free(cResult2);
-    return result;
+    return sum_complex(&cResult1, &cResult2);
 }
 
 void print_complex(struct complex_number* complex) {
@@ -55,23 +52,17 @@ void print_complex(struct complex_number* complex) {
 
 int main() {
     struct rectangle rect = {10, 5};
-    struct complex_number* complex1 = malloc(sizeof(struct complex_number));
-    complex1->real = 0; complex1->imaginary = 3;
-    struct complex_number* complex2 = malloc(sizeof(struct complex_number));
-    complex2->real = 1; complex2->imaginary = -4;
 
-    struct complex_number* result;
-    result = multiply_complex(complex1, complex2);
+    struct complex_number complex1 = {0, 3};
+    struct complex_number complex2 = {2, 4};
+    struct complex_number result = multiply_complex(&complex1, &complex2);
 
     printf("\nThe area of the rectangle -> %d\n\n", rect.length * rect.breadth);
 
-    printf("First complex -> "); print_complex(complex1);
-    printf("\nSecond complex -> "); print_complex(complex2);
+    printf("First complex -> "); print_complex(&complex1);
+    printf("\nSecond complex -> "); print_complex(&complex2);
 
-    printf("\nResult of the imaginary number -> "); print_complex(result); printf("\n");
+    printf("\nResult of the imaginary number -> "); print_complex(&result); printf("\n");
 
-    free(complex1);
-    free(complex2);
-    free(result);
     return 0;
 }
