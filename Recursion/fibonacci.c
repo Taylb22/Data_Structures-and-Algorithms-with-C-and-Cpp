@@ -35,18 +35,25 @@ int ifibonacci(int n) {
     return prev1;
 }
 
+//Recursive with memoization
+//time O(n)
+//space O(n)
+//better than the first attempt, but worst than the iterative way
 int fib(int n, int* memo) {
     if (n <= 1) {
         memo[n] = n;
         return n;
     }
-    memo[n-2] = fib(n-2, memo);
-    memo[n-1] = fib(n-1, memo);
-    return memo[n-2] + memo[n-1];
+    if (memo[n] != -1) {
+        return memo[n];
+    }
+
+    memo[n] = fib(n-2, memo) + fib(n-1, memo);
+    return memo[n];
 }
 int fibonacci_memo(int n) {
-    int* memo = (int*) malloc(n * sizeof(int));
-    for (int i = 0; i < n; i++) {memo[i] = -1;}
+    int* memo = (int*) malloc((n+1) * sizeof(int));
+    for (int i = 0; i <= n; i++) {memo[i] = -1;}
     int ans = fib(n, memo);
     free(memo);
     return ans;
