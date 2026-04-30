@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 //First attempt
 //No memoization
@@ -34,11 +35,29 @@ int ifibonacci(int n) {
     return prev1;
 }
 
+int fib(int n, int* memo) {
+    if (n <= 1) {
+        memo[n] = n;
+        return n;
+    }
+    memo[n-2] = fib(n-2, memo);
+    memo[n-1] = fib(n-1, memo);
+    return memo[n-2] + memo[n-1];
+}
+int fibonacci_memo(int n) {
+    int* memo = (int*) malloc(n * sizeof(int));
+    for (int i = 0; i < n; i++) {memo[i] = -1;}
+    int ans = fib(n, memo);
+    free(memo);
+    return ans;
+}
+
 int main() {
     int n = 10;
 
     printf("n: %d\n", n);
     printf("\nFirst attempt\nresult-> %d\n", fibonacci(n));
     printf("Iterative way\nresult-> %d\n", ifibonacci(n));
+    printf("Recursive with memoization\nresult-> %d\n", fibonacci_memo(n));
     return 0;
 }
