@@ -30,7 +30,7 @@ int fComb(int n, int k) {
 //time O(k)
 //space O(k)
 //helps solve the overflow problem
-int rComb2(int n, int k) {
+double rComb2(int n, int k) {
     if (k == 0) {
         return 1;
     }
@@ -40,11 +40,11 @@ int rComb2(int n, int k) {
 
 int main() {
     int n = 20;
-    int k = 2;
+    int k = 3;
 
     printf("n: %d\nk: %d\n", n, k);
     printf("\nFirst attempt\nresult-> %d\n", rComb(n, k));
     printf("Factorial\nresult-> %d\n", fComb(n, k)); //overflow due to factorial of int
-    printf("Recursive of K\nresult-> %d\n", rComb2(n, k));
+    printf("Recursive of K\nresult-> %d\n", (int) rComb2(n, k));
     return 0;
 }
