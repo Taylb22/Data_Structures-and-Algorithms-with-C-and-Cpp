@@ -17,6 +17,7 @@ int fac(int n) {
     }
     return res;
 }
+
 //Factorial version
 //time O(n)
 //space O(1)
