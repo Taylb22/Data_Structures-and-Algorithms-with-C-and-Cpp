@@ -6,6 +6,8 @@ class Array {
         T* arr = NULL;
         int size = 0;
         int length = 0;
+
+        void swapHead(int index);
     public:
         Array(int size){
             this->size = size;
@@ -16,6 +18,9 @@ class Array {
         void append(T val);
         void insert(int index, T val);
         void erase(int index);
+        int find(T val, bool swap=false);
+        int binary_search(T val, bool auto_sort=false);
+        bool isSorted();
 
         ~Array() {
             delete[] this->arr;
@@ -74,6 +79,36 @@ void Array<T>::append(T val) {
     this->length++;
 }
 
+template <typename T>
+void Array<T>::swapHead(int index) {
+    T temp = this->arr[0];
+    this->arr[0] = this->arr[index];
+    this->arr[index] = temp;
+}
+
+template <typename T>
+int Array<T>::find(T val, bool swap) {
+    int index = -1; //Returns -1 if not found
+    for (int i = 0; i < this->length; i++) {
+        if (!(this->arr[i] == val)) {
+            continue;
+        }
+
+        switch (swap){
+        case true:
+            this->swapHead(i);
+            return 0;
+            break;
+        
+        default:
+            return i;
+            break;
+        }
+    }
+    return -1;
+}
+
+template()
 
 int main () {
     Array<int> arr(4);
@@ -83,6 +118,10 @@ int main () {
     arr.insert(2, 3);
     arr.display();
     arr.erase(2);
+    arr.display();
+    printf("%d", arr.find(20));
+    arr.display();
+    printf("%d", arr.find(20, true));
     arr.display();
 
     return 0;
