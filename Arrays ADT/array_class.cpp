@@ -195,7 +195,8 @@ int main () {
     arr.sort();
     arr.display();
     std::cout << " " << arr.isSorted() << std::endl;
-    std::cout << "Position of the element 20 -> " << arr.binary_search(20, true);
+    int n = 20;
+    std::cout << "Position of the element "<< n << " -> " << arr.binary_search(20, true);
     
     return 0;
 }
