@@ -8,6 +8,7 @@ class Array {
         int length = 0;
 
         void swapHead(int index);
+        void quicksort(int left, int right);
     public:
         Array(int size){
             this->size = size;
@@ -21,6 +22,7 @@ class Array {
         int find(T val, bool swap=false);
         int binary_search(T val, bool auto_sort=false);
         bool isSorted();
+        void sort();
 
         ~Array() {
             delete[] this->arr;
@@ -99,7 +101,6 @@ int Array<T>::find(T val, bool swap) {
             this->swapHead(i);
             return 0;
             break;
-        
         default:
             return i;
             break;
@@ -108,21 +109,93 @@ int Array<T>::find(T val, bool swap) {
     return -1;
 }
 
-template()
+template <typename T>
+void Array<T>::quicksort(int left, int right) {
+    if (left >= right) return;
+
+    int l = left;
+    int r = right;
+    T pivot = this->arr[(left + right) / 2];
+
+    while (l <= r) {
+        while (this->arr[l] < pivot) {l++;}
+        while (this->arr[r] > pivot) {r--;}
+
+        if (l <= r) {
+            T temp = this->arr[l];
+            this->arr[l] = this->arr[r];
+            this->arr[r] = temp;
+            l++;
+            r--;
+        }
+
+        if (left < r) {
+            this->quicksort(left, r);
+        }
+        if (right > l) {
+            this->quicksort(l, right);
+        }
+    }
+}
+
+template <typename T>
+void Array<T>::sort() {
+    this->quicksort(0, this->length - 1);
+}
+
+template <typename T>
+bool Array<T>::isSorted() {
+    if (this->length <= 1) return true;
+    for (int i = 1; i<this->length; i++) {
+        if (this->arr[i] < this->arr[i-1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <typename T>
+int Array<T>::binary_search(T val, bool auto_sort) {
+    bool is_sorted = this->isSorted();
+    if (!auto_sort && !is_sorted) {
+        throw  std::runtime_error("Vector is unsorted... Unable to proceed with binary search");
+    }
+    if (!is_sorted) {
+        this->sort();
+    }
+
+    int l = 0;
+    int r = this->length-1;
+    while (l <= r){
+        int mid = ((l + r) / 2);
+        if (this->arr[mid] == val) return mid;
+
+        if (val < this->arr[mid]) {
+            r = mid-1;
+        } else {
+            l = mid+1;
+        }
+    }
+    return -1;
+}
 
 int main () {
-    Array<int> arr(4);
+    Array<int> arr(20);
     arr.append(10);
     arr.append(20);
     arr.append(5);
     arr.insert(2, 3);
+    arr.append(100);
+    arr.append(100);
+    arr.append(98);
+    arr.append(98);
+    arr.append(97);
     arr.display();
-    arr.erase(2);
+    std::cout << " " << arr.isSorted() << std::endl;
+    arr.sort();
     arr.display();
-    printf("%d", arr.find(20));
-    arr.display();
-    printf("%d", arr.find(20, true));
-    arr.display();
-
+    std::cout << " " << arr.isSorted() << std::endl;
+    std::cout << "Position of the element 20 -> " << arr.binary_search(20, true);
+    
     return 0;
 }
