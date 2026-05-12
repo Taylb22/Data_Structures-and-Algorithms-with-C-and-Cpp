@@ -6,7 +6,6 @@
 //TO-DO:
 //Include a input validation
 //Validate the "cin.get" input
-//Include the features from 3 to 6
 
 //clear the console
 void clear() {
@@ -34,6 +33,8 @@ int main () {
     bool running = true;
     while (running) {
         clear();
+        std::cout << "ARRAY CURRENT STATE" << std::endl;
+        std::cout << "<< ";
         arr.display();
         std::cout << std::endl;
 
@@ -55,7 +56,7 @@ int main () {
         
         switch (aux) {
             //Exit program
-            case 0:
+            case 0: {
                 clear();
                 std::cout << "Thanks for using the the program!" << std::endl;
                 std::cout << "Press ENTER..." << std::endl;
@@ -65,8 +66,9 @@ int main () {
 
                 running = false;
                 break;
+            }
             //Append element
-            case 1:
+            case 1: {
                 clear();
                 double val;
                 std::cout << "Type the value to append" << std::endl;
@@ -82,8 +84,9 @@ int main () {
                 std::cin.ignore(1, '\n');
                 std::cin.get(); //TO-DO validate ".get"
                 break;
+            }
             //Erase element
-            case 2:
+            case 2: {
                 clear();
                 int index;
                 std::cout << "Type the index of the element to erase" << std::endl;
@@ -99,20 +102,115 @@ int main () {
                 std::cin.ignore(1, '\n');
                 std::cin.get(); //TO-DO validate ".get"
                 break;
+            }
             //Insert Element
-            case 3:
+            case 3: {
+                clear();
+                int index;
+                double val;
+                std::cout << "Type the index of where you want to insert the value" << std::endl;
+                std::cout << ">> ";
+                std::cin >> index; //TO-DO: validate input
+
+                std::cout << std::endl;
+                std::cout << "Type the value you want to insert" << std::endl;
+                std::cout << ">> ";
+                std::cin >> val; //TO-DO: validate input
+
+                arr.insert(index, val);
+
+                std::cout << std::endl;
+                std::cout << "Value inserted at the giving index" << std::endl;
+                std::cout << "Press ENTER to continue..." << std::endl;
+
+                std::cin.ignore(1, '\n');
+                std::cin.get(); //TO-DO: validate ".get"
                 break;
+            }
             //Find element
-            case 4:
+            case 4: {
+                clear();
+                double val;
+                std::cout << "Type the value you want to find" << std::endl;
+                std::cout << ">> ";
+                std::cin >> val; //TO-DO: validate input
+
+                int index = arr.find(val);
+
+                std::cout << std::endl;
+                if (index == -1) {
+                    std::cout << "No element found with the provided value..." << std::endl;
+                } else {
+                    std::cout << "The index of the provided value is " << index << std::endl;
+                    arr.display();
+                    std::cout << std::endl << std::endl;
+                }
+
+                std::cout << "Press ENTER to continue..." << std::endl;
+
+                std::cin.ignore(1, '\n');
+                std::cin.get(); //TO-DO: validate ".get"
                 break;
+            }
             //Sort array
-            case 5:
+            case 5: {
+                clear();
+                if (arr.isSorted()) {
+                    std::cout << "The array is already sorted" << std::endl;
+                } else {
+                    arr.sort();
+                    std::cout << "This is your new sorted array" << std::endl;
+                    std::cout << "<< ";
+                    arr.display();
+                    std::cout << " >>" << std::endl;
+                    std::cout << std::endl;
+                }
+
+                std::cout << "Press ENTER to continue..." << std::endl;
+
+                std::cin.ignore(1, '\n');
+                std::cin.get(); //TO-DO: validate ".get"
                 break;
+            }
             //Binary Search element
-            case 6:
+            case 6: {
+                clear();
+                if (!arr.isSorted()) {
+                    std::cout << "The array is not sorted" << std::endl;
+                    std::cout << "Sort the array before performing the binary search" << std::endl;
+
+                    std::cout << std::endl;
+                    std::cout << "Press ENTER to continue..." << std::endl;
+
+                    std::cin.ignore(1, '\n');
+                    std::cin.get(); //TO-DO: validate ".get"
+                    break;
+                };
+
+                int val;
+                std::cout << "Type the value of the value you want to find" << std::endl;
+                std::cout << ">> ";
+                std::cin >> val; //TO-DO: validate input
+
+                int index = arr.binary_search(val);
+
+                std::cout << std::endl;
+                if (index == -1) {
+                    std::cout << "No element found with the provided value..." << std::endl;
+                } else {
+                    std::cout << "The binary search result is " << index << std::endl;
+                    arr.display();
+                    std::cout << std::endl << std::endl;
+                }
+
+                std::cout << "Press ENTER to continue..." << std::endl;
+
+                std::cin.ignore(1, '\n');
+                std::cin.get(); //TO-DO: validate ".get"
                 break;
+            }
             //Invalid input
-            default:
+            default: {
                 clear();
                 std::cout << "Invalid option..." << std::endl;
                 std::cout << "Press ENTER to try again" << std::endl;
@@ -120,6 +218,7 @@ int main () {
                 std::cin.ignore(1, '\n');
                 std::cin.get(); //TO-DO: Validate ".get"
                 break;
+            }
         }
     }
 
