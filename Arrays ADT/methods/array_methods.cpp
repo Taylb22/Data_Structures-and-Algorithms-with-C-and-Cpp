@@ -1,23 +1,10 @@
 #include <iostream>
-#include "../ARRAY.h"
+// #include "../ARRAY.h" //Only for development
 
 //TO-DO:
 //Implement the set(index, val) method
 //Implement the max, min, sum, avr methods
 //Destroy dependency on the "display" method
-
-//Constructor
-template <typename T>
-Array<T>::Array(int size){
-    this->size = size;
-    this->arr = new T[size];
-}
-
-//Destructor
-template <typename T>
-Array<T>::~Array() {
-    delete[] this->arr;
-}
 
 //Utils (private methods)
     //Swaps the element of a giving index with the element of index 0

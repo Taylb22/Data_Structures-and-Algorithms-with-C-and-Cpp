@@ -14,7 +14,10 @@ class Array {
         void quicksort(int left, int right);
     public:
         //Constructor
-        Array(int size){}
+        Array(int size){
+            this->size = size;
+            this->arr = new T[size];
+        }
 
         //Core methods
             //Acessors
@@ -42,7 +45,10 @@ class Array {
         void display();
 
         //Destructor
-        ~Array() {}
+        ~Array() {
+            delete[] this->arr;
+        }
 };
 
+#include "methods/array_methods.cpp"
 #endif
