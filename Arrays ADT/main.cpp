@@ -1,12 +1,12 @@
 #include <iostream>
-#include <stdexcept>
+#include <limits>
 #include <stdlib.h>
 #include <string.h>
 #include "Array.h"
 
 //TO-DO:
-//Include a input validation -> TOP PRIORITY
-//Validate the "cin.get" input
+//Validate the return of the arr methods
+//Put the "clear" function before tthe switch statement
 //Improve the "clear" function
 //Improve the "search_result" util function
 
@@ -20,24 +20,42 @@ void clear() {
 #endif
 }
 
+    //Reset the CIN internal state and clears the buffer
+void reset_input() {
+    std::cin.clear(); //Resets the internal state
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
     //Abstraction to ask for a double value giving a specific message
 double ask_double(std::string message) {
     std::cout << message << std::endl;
-    std::cout << ">> ";
-
+    
     double val;
-    std::cin >> val; //TO-DO: validate input
-    return val;
+    while (true) {
+        std::cout << ">> ";
+        if (std::cin >> val) return val;
+
+        reset_input();
+        std::cout << std::endl;
+        std::cout << "Invalid input..." << std::endl;
+        std::cout << "Provide a valid decimal number" << std::endl;
+    }
 }
 
     //Abstraction to ask for a integer value giving a specific message
 int ask_int(std::string message) {
     std::cout << message << std::endl;
-    std::cout << ">> ";
-
+    
     int val;
-    std::cin >> val; //TO-DO: validate input
-    return val;
+    while (true) {
+        std::cout << ">> ";
+        if (std::cin >> val) return val;
+
+        reset_input();
+        std::cout << std::endl;
+        std::cout << "Invalid input..." << std::endl;
+        std::cout << "Provide a valid integer number" << std::endl;
+    }
 }
 
     //Abstraction of the commonly used "press ENTER" UI operation
@@ -111,7 +129,10 @@ int main () {
                 clear();
                 double val = ask_double("Type the value to append");
 
-                arr.append(val);
+                auto stat = arr.append(val);
+                if (!stat.ok) {
+                    
+                }
 
                 std::cout << std::endl;
                 std::cout << "Value appended" << std::endl;
@@ -186,7 +207,7 @@ int main () {
                     break;
                 };
 
-                double val =  ask_double("Type the value of the value you want to find");
+                double val = ask_double("Type the value of the value you want to find");
                 int index = arr.binary_search(val);
 
                 std::cout << std::endl;

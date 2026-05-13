@@ -2,10 +2,46 @@
 #ifndef Array_h
 #define Array_h
 
+enum ErrorCode {
+    OK,
+    INDEX_OUT_OF_BOUNDS,
+    ARRAY_FULL,
+    NOT_SORTED
+};
+
+//Response structs
+struct Status {
+    bool ok = true;
+    int error_code = OK;
+
+    static Status sucess() {
+        return {true, OK};
+    }
+
+    static Status failure(ErrorCode e) {
+        return {false, e};
+    }
+};
+
+template <typename T>
+struct Response {
+    T value;
+    bool ok = true;
+    int error_code;
+
+    static Response sucess(T value) {
+        return {value, true, OK};
+    }
+
+    static Response failure(ErrorCode e) {
+        return {{}, false, e};
+    }
+};
+
 template <typename T>
 class Array {
     private:
-        T* arr = NULL;
+        T* arr = nullptr;
         int size = 0;
         int length = 0;
 
@@ -17,28 +53,29 @@ class Array {
         Array(int size){
             this->size = size;
             this->arr = new T[size];
+            this->length = 0;
         }
 
         //Core methods
             //Acessors
-            T get(int index);
+            Response<T> get(int index);
             //Mutators
-            void set(int index, T val);
-            void append(T val);
-            void insert(int index, T val);
-            void erase(int index);
+            Status set(int index, T val);
+            Status append(T val);
+            Status insert(int index, T val);
+            Status erase(int index);
             
         //Algorithms
-        int find(T val, bool swap=false);
-        int binary_search(T val, bool auto_sort=false);
-        void sort();
+        Response<int> find(T val, bool swap=false);
+        Response<int> binary_search(T val, bool auto_sort=false);
+        Status sort();
         
         //Computational Methods
-        bool isSorted();
-        T max();
-        T min();
-        T sum();
-        double avg();
+        Response<bool> isSorted();
+        Response<T> max();
+        Response<T> min();
+        Response<T> sum();
+        Response<double> avg();
         
         //TO-DO: destroy dependency of the "diplay" method
         //Temporary I/O

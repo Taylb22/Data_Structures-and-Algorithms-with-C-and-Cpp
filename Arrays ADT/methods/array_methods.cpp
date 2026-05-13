@@ -2,9 +2,12 @@
 // #include "../ARRAY.h" //Only for development
 
 //TO-DO:
+//Implement the response structs (status, response)
 //Implement the set(index, val) method
 //Implement the max, min, sum, avr methods
 //Destroy dependency on the "display" method
+
+
 
 //Utils (private methods)
     //Swaps the element of a giving index with the element of index 0
@@ -52,25 +55,27 @@ void Array<T>::quicksort(int left, int right) {
     //Mutators
         //Delete the data of a giving index
     template <typename T>
-    void Array<T>::erase(int index) {
+    bool Array<T>::erase(int index) {
         if (index > this->size-1 || index < 0 || index > this->length-1) {
-            throw std::runtime_error("Index out of bounds...");
+            return false;
         }
         
         for (int i = index; i < this->length-1; i++) {
             this->arr[i] = this->arr[i+1];
         }
+        
         this->length--;
+        return true;
     }
 
         //Inserts a value into a giving index
     template <typename T>
-    void Array<T>::insert(int index, T val) {
+    bool Array<T>::insert(int index, T val) {
         if (index > this->size-1 || index < 0) {
-            throw std::runtime_error("Index out of bounds...");
+            return false;
         }
         if (this->size == this->length) {
-            throw std::runtime_error("Array is full...");
+            return false;
         }
         
         for (int i = this->length; i > index; i--) {
@@ -82,9 +87,9 @@ void Array<T>::quicksort(int left, int right) {
 
         //Inserts a value at the end of the array
     template <typename T>
-    void Array<T>::append(T val) {
+    bool Array<T>::append(T val) {
         if (this->length == this->size) {
-            throw std::runtime_error("Array is full...");
+            return false;
         }
 
         this->arr[this->length] = val;
