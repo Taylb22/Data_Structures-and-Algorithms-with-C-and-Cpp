@@ -144,7 +144,8 @@ int main () {
             case 2: {
                 clear();
                 int index = ask_int("Type the index of the element to erase");
-                arr.erase(index);
+
+                auto stat = arr.erase(index);
 
                 std::cout << std::endl;
                 std::cout << "Value deleted at the giving index" << std::endl;
@@ -158,7 +159,7 @@ int main () {
                 std::cout << std::endl;
                 double val = ask_double("Type the value you want to insert");
 
-                arr.insert(index, val);
+                auto stat = arr.insert(index, val);
 
                 std::cout << std::endl;
                 std::cout << "Value inserted at the giving index" << std::endl;
@@ -170,10 +171,10 @@ int main () {
                 clear();
                 double val = ask_double("Type the value you want to find");
 
-                int index = arr.find(val);
+                auto index = arr.find(val);
 
                 std::cout << std::endl;
-                search_result(index, arr);
+                search_result(index.value, arr);
 
                 wait_enter();
                 break;
@@ -181,7 +182,7 @@ int main () {
             //Sort array
             case 5: {
                 clear();
-                if (arr.isSorted()) {
+                if (arr.isSorted().value) {
                     std::cout << "The array is already sorted" << std::endl;
                 } else {
                     arr.sort();
@@ -198,7 +199,7 @@ int main () {
             //Binary Search element
             case 6: {
                 clear();
-                if (!arr.isSorted()) {
+                if (!arr.isSorted().value) {
                     std::cout << "The array is not sorted" << std::endl;
                     std::cout << "Sort the array before performing the binary search" << std::endl;
 
@@ -208,10 +209,10 @@ int main () {
                 };
 
                 double val = ask_double("Type the value of the value you want to find");
-                int index = arr.binary_search(val);
+                auto index = arr.binary_search(val);
 
                 std::cout << std::endl;
-                search_result(index, arr);
+                search_result(index.value, arr);
 
                 wait_enter();
                 break;
