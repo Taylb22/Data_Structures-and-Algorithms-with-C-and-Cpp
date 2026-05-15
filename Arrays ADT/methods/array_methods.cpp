@@ -6,8 +6,6 @@
 //Implement the max, min, sum, avr methods
 //Destroy dependency on the "display" method
 
-
-
 //Utils (private methods)
     //Swaps the element of a giving index with the element of index 0
 template <typename T>
@@ -49,7 +47,10 @@ void Array<T>::quicksort(int left, int right) {
 
 //Core Methods
     //Acessors
-
+    template <typename T>
+    int Array<T>::getLength() {
+        return this->length;
+    } 
     
     //Mutators
         //Delete the data of a giving index
@@ -149,6 +150,10 @@ Response<int> Array<T>::binary_search(T val, bool auto_sort) {
     //Method that abstracts the implementation of Quicksort
 template <typename T>
 Status Array<T>::sort() {
+    if (this->isSorted().value) {
+        return Status::failure(ALREADY_SORTED);
+    }
+
     this->quicksort(0, this->length - 1);
     return Status::sucess();
 }
@@ -164,19 +169,4 @@ Response<bool> Array<T>::isSorted() {
         }
     }
     return Response<bool>::sucess(true);
-}
-
-//Temporary method to print the array
-template <typename T>
- void Array<T>::display() {
-    if (this->length <= 0) {
-        std::cout << "[]";
-        return;
-    }
-
-    std::cout << "[";
-    for (int i = 0; i<this->length-1; i++) {
-        std::cout << this->arr[i] << ", ";
-    }
-    std::cout << this->arr[this->length-1] << "]";
 }

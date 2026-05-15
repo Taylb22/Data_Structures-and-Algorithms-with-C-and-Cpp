@@ -6,7 +6,8 @@ enum ErrorCode {
     OK,
     INDEX_OUT_OF_BOUNDS,
     ARRAY_FULL,
-    NOT_SORTED
+    NOT_SORTED,
+    ALREADY_SORTED
 };
 
 //Response structs
@@ -59,6 +60,7 @@ class Array {
         //Core methods
             //Acessors
             Response<T> get(int index);
+            int getLength();
             //Mutators
             Status set(int index, T val);
             Status append(T val);
@@ -76,11 +78,20 @@ class Array {
         Response<T> min();
         Response<T> sum();
         Response<double> avg();
-        
-        //TO-DO: destroy dependency of the "diplay" method
-        //Temporary I/O
-        void display();
 
+        friend std::ostream& operator<<(std::ostream& os, const Array<T>& arr) {
+            if (arr.length <= 0) {
+                os << "[]";
+                return os;
+            }
+            
+            os << "[";
+            for (int i = 0; i < arr.length-1; i++) {
+                os << arr.arr[i] << ", ";
+            }
+            os << arr.arr[arr.length-1] << "]";
+            return os;
+        }
         //Destructor
         ~Array() {
             delete[] this->arr;
