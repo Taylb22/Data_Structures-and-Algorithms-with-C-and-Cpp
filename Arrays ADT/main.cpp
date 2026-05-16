@@ -5,10 +5,7 @@
 #include "Array.h"
 
 //TO-DO:
-//Validate the return of the arr methods
-//Put the "clear" function before tthe switch statement
 //Improve the "clear" function
-//Improve the "search_result" util function
 
 //Utils
     //clear the console

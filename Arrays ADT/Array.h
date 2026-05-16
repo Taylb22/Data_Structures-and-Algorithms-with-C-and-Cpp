@@ -6,6 +6,7 @@ enum ErrorCode {
     OK,
     INDEX_OUT_OF_BOUNDS,
     ARRAY_FULL,
+    EMPTY_ARRAY,
     NOT_SORTED,
     ALREADY_SORTED
 };

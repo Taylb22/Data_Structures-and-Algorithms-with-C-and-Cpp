@@ -1,11 +1,6 @@
 #include <iostream>
 // #include "../ARRAY.h" //Only for development
 
-//TO-DO:
-//Implement the set(index, val) method
-//Implement the max, min, sum, avr methods
-//Destroy dependency on the "display" method
-
 //Utils (private methods)
     //Swaps the element of a giving index with the element of index 0
 template <typename T>
@@ -53,6 +48,17 @@ void Array<T>::quicksort(int left, int right) {
     } 
     
     //Mutators
+        //Set the data at a given index
+    template <typename T>
+    Status Array<T>::set(int index, T val) {
+        if (index > this->size - 1 || index < 0 || index > this->length-1) {
+            return Status::failure(INDEX_OUT_OF_BOUNDS);
+        }
+
+        this->arr[index] = val;
+        return Status::sucess();
+    }
+
         //Delete the data of a giving index
     template <typename T>
     Status Array<T>::erase(int index) {
@@ -169,4 +175,63 @@ Response<bool> Array<T>::isSorted() {
         }
     }
     return Response<bool>::sucess(true);
+}
+
+    //Searchs linearly for the max value
+template <typename T>
+Response<T> Array<T>::max() {
+    if (this->length == 0) {
+        return Response<T>::failure(EMPTY_ARRAY);
+    }
+
+    T m = this->arr[0];
+    for (int i = 1; i < this->length; i++) {
+        if (this->arr[i] >= m) {
+            m = this->arr[i];
+        }
+    }
+
+    return Response<T>::sucess(m);
+}
+
+    //Searchs lineraly for the min value
+template <typename T>
+Response<T> Array<T>::min() {
+    if (this->length == 0) {
+        return Response<T>::failure(EMPTY_ARRAY);
+    }
+
+    T m = this->arr[0];
+    for (int i = 1; i < this->length; i++) {
+        if (this->arr[i] <= m) {
+            m = this->arr[i];
+        }
+    }
+
+    return Response<T>::sucess(m);
+}
+
+    //Sums the entire array
+template <typename T>
+Response<T> Array<T>::sum() {
+    if (this->length == 0) {
+        return Response<T>::failure(EMPTY_ARRAY);
+    }
+
+    T s = {};
+    for (int i = 0; i < this->length; i++) {
+        s += this->arr[i];
+    }
+
+    return Response<T>::sucess(s);
+}
+    //returns the average of the array
+template <typename T>
+Response<double> Array<T>::avg() {
+    if (this->length == 0) {
+        return Response<double>::failure(EMPTY_ARRAY);
+    }
+
+    double av = (double) this->sum().value / this->length;
+    return Response<double>::sucess(av);
 }
